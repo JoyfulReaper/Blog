@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="890d4497-d430-4151-9218-19fc227e75c5" ChangeDateTime="07/09/2022 20:13:08">
+    <Property Name="ElementName" Value="[dbo].[Post].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Post]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PostId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fe649ee9-249e-417a-9bc0-cbf618af2dae" ChangeDateTime="07/09/2022 20:14:33">
+    <Property Name="ElementName" Value="[dbo].[Post].[varchar(128)]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Post]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Author" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="efb7d877-608d-4394-83f8-7ea731728d8a" ChangeDateTime="07/09/2022 20:17:07">
+    <Property Name="ElementName" Value="[dbo].[Post].[bit]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Post]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Ready" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="45563b03-815b-4e35-a4b3-a1260fe387fb" ChangeDateTime="07/09/2022 20:41:20">
+    <Property Name="ElementName" Value="[dbo].[Post].[Author]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Post]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AuthorId" />
+  </Operation>
+</Operations>

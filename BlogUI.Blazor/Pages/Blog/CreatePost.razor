@@ -1,0 +1,46 @@
+﻿@page "/create-post"
+
+@inject HttpClient _client
+@inject NavigationManager _nav
+
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+        <div class="mb-2" style="color: tomato;">
+            @_error
+        </div>
+
+        <EditForm Model="@_post" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <label>Title</label>
+            <InputText class="form-control" @bind-Value="_post.Title" />
+            <lable>Content</lable>
+            <InputTextArea class="form-control" @bind-Value="_post.Content"></InputTextArea>
+            <label>Password</label>
+            <InputText type="password" class="form-control" @bind-Value=_password />
+            <button type="submit" class="btn btn-primary mt-1">Add Post</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private Post _post = new Post();
+    private string _password = string.Empty;
+    private string _error = string.Empty;
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            using var response = await _client.PostAsJsonAsync("/api/post", new { Title = _post.Title, Content = _post.Content, Password = _password });
+            response.EnsureSuccessStatusCode();
+
+            _nav.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}

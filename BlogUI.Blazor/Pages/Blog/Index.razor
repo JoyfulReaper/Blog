@@ -1,0 +1,45 @@
+﻿@page "/"
+@inject HttpClient Http
+@inject IConfiguration Config
+
+<PageTitle>Kyle Givler's Blog</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <div class="mb-2" style="color: tomato;">
+    @_error
+</div>
+
+<p>
+    Coming soon! More information about what this is... A blog about building a blog. What you are seeing now is the very beginning stage of this project.
+</p>
+
+@foreach (var post in _posts)
+{
+    <div class="card mt-2">
+        <div class="card-body">
+            <h5 class="card-title">@post.Title</h5>
+            <p class="card-text">@post.Content</p>
+        </div>
+    </div>
+}  
+    </div>
+</div>
+
+
+@code {
+    private IEnumerable<Post> _posts = Enumerable.Empty<Post>();
+    private string _error = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _posts = await Http.GetFromJsonAsync<IEnumerable<Post>>($"api/post");
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+}
