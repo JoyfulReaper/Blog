@@ -4,22 +4,20 @@
 
 <PageTitle>Kyle Givler's Blog</PageTitle>
 
+<h3 class="text-center">A Blog About Building a Blog</h3>
+
 <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
       <div class="mb-2" style="color: tomato;">
     @_error
 </div>
 
-<p>
-    Coming soon! More information about what this is... A blog about building a blog. What you are seeing now is the very beginning stage of this project.
-</p>
-
 @foreach (var post in _posts)
 {
-    <div class="card mt-2">
+    <div class="card mt-2 mb-2">
         <div class="card-body">
             <h5 class="card-title">@post.Title</h5>
-            <p class="card-text">@post.Content</p>
+            <p class="card-text">@((MarkupString)post.Content)</p>
         </div>
     </div>
 }  

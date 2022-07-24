@@ -2,6 +2,9 @@
 
 @inject HttpClient _client
 @inject NavigationManager _nav
+@inject IConfiguration _config
+
+<PageTitle>Kyle Givler's Blog</PageTitle>
 
 <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
@@ -16,7 +19,7 @@
             <label>Title</label>
             <InputText class="form-control" @bind-Value="_post.Title" />
             <lable>Content</lable>
-            <InputTextArea class="form-control" @bind-Value="_post.Content"></InputTextArea>
+            <Editor Field="() => _post.Content" @bind-Value="_post.Content" ScriptSrc="@_config["TinyMce"]" Conf="@_editorConf" />
             <label>Password</label>
             <InputText type="password" class="form-control" @bind-Value=_password />
             <button type="submit" class="btn btn-primary mt-1">Add Post</button>
@@ -28,6 +31,12 @@
     private Post _post = new Post();
     private string _password = string.Empty;
     private string _error = string.Empty;
+
+    private Dictionary<string, object> _editorConf = new Dictionary<string, object>{
+        {"plugins", "advlist autolink link image lists charmap preview codesample"},
+        {"toolbar", "undo redo | styles | bold italic underline | fontfamily fontsize forecolor | link image | codesample"},
+        {"statusbar", false}
+   };
 
     private async Task HandleValidSubmit()
     {
