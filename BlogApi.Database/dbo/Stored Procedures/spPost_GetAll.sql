@@ -7,6 +7,7 @@ BEGIN
 		[PostId],
 		[AuthorId],
 		[Title],
+		[Abstract],
 		[Content],
 		[Ready], 
 		[Slug],

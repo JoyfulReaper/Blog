@@ -30,6 +30,7 @@ public class Post
     public int PostId { get; set; }
     public string? AuthorId { get; set; }
     public string Title { get; set; } = null!;
+    public string? Abstract { get; set; }
     public string Content { get; set; } = null!;
     public string Slug { get; set; } = null!;
     public bool Ready { get; set; }

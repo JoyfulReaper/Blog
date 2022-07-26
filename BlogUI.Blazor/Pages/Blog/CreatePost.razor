@@ -18,6 +18,8 @@
 
             <label>Title</label>
             <InputText class="form-control" @bind-Value="_post.Title" />
+            <label>Abstract</label>
+            <InputText class="form-control" @bind-Value="_post.Abstract" />
             <lable>Content</lable>
             <Editor Field="() => _post.Content" @bind-Value="_post.Content" ScriptSrc="@_config["TinyMce"]" Conf="@_editorConf" />
             <label>Password</label>
@@ -33,16 +35,23 @@
     private string _error = string.Empty;
 
     private Dictionary<string, object> _editorConf = new Dictionary<string, object>{
-        {"plugins", "advlist autolink link image lists charmap preview codesample"},
+        {"plugins", "advlist autolink link image lists charmap preview codesample code"},
         {"toolbar", "undo redo | styles | bold italic underline | fontfamily fontsize forecolor | link image | codesample"},
-        {"statusbar", false}
+        {"statusbar", false},
+        {"codesample_global_prismjs", true},
    };
 
     private async Task HandleValidSubmit()
     {
         try
         {
-            using var response = await _client.PostAsJsonAsync("/api/post", new { Title = _post.Title, Content = _post.Content, Password = _password });
+            using var response = await _client.PostAsJsonAsync("/api/post", new
+            {
+                Title = _post.Title,
+                Abstract = _post.Abstract,
+                Content = _post.Content,
+                Password = _password
+            });
             response.EnsureSuccessStatusCode();
 
             _nav.NavigateTo("/");

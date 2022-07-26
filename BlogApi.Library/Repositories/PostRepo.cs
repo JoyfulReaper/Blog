@@ -55,6 +55,7 @@ public class PostRepo : IPostRepo
             PostId = post.PostId,
             AuthorId = post.AuthorId,
             Title = post.Title,
+            Abstract = post.Abstract,
             Content = post.Content,
             Ready = post.Ready,
             Slug = post.Slug,

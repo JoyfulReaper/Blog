@@ -29,6 +29,7 @@ public class PostCreateRequest
 {
     public string? AuthorId { get; set; }
     public string Title { get; set; } = null!;
+    public string? Abstract { get; set; }
     public string Content { get; set; } = null!;
     public bool Ready { get; set; }
     public string Password { get; set; } = null!;

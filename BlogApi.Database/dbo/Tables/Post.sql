@@ -3,6 +3,7 @@
 	[PostId] INT NOT NULL PRIMARY KEY IDENTITY, 
     [AuthorId] NVARCHAR(128) NULL, 
     [Title] NVARCHAR(200) NOT NULL, 
+	[Abstract] NVARCHAR(200) NULL,
     [Content] NVARCHAR(MAX) NOT NULL, 
     [Ready] BIT NULL DEFAULT 0,
 	[Slug] VARCHAR(500),

@@ -61,6 +61,7 @@ public class PostController : ControllerBase
         var post = new Post
         {
             Title = postRequest.Title,
+            Abstract = postRequest.Abstract,
             Content = postRequest.Content,
             AuthorId = null,
             Ready = postRequest.Ready

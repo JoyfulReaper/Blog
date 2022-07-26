@@ -2,6 +2,7 @@
 	@PostId INT,
 	@AuthorId NVARCHAR(128),
 	@Title NVARCHAR(200),
+	@Abstract NVARCHAR(200),
 	@Content NVARCHAR(MAX),
 	@Ready BIT,
 	@Slug VARCHAR(500),
@@ -15,6 +16,7 @@ BEGIN
 	SET
 		AuthorId = @AuthorId,
 		Title = @Title,
+		Abstract = @Abstract,
 		Content = @Content,
 		Ready = @Ready,
 		Slug = @Slug,
@@ -29,11 +31,13 @@ BEGIN
 	  INSERT dbo.Post
 		(AuthorId,
 		Title,
+		Abstract,
 		Content,
 		Ready)
 	  VALUES
 		(@AuthorId,
 		@Title,
+		@Abstract,
 		@Content,
 		@Ready);
 		

@@ -1,26 +1,37 @@
-﻿@page "/"
-@inject HttpClient Http
-@inject IConfiguration Config
+﻿@*https://liamhunt.blog/2022/prism-js-syntax-highlighting-in-blazor/*@
+
+@page "/"
+@inject HttpClient _client
+@inject IConfiguration _config
+@inject IJSRuntime _jsRuntime
 
 <PageTitle>Kyle Givler's Blog</PageTitle>
 
+@if (_config["mode"] == "dev")
+{
+    <h2 class="text-center" style="color: tomato">Development Mode</h2>
+}
 <h3 class="text-center">A Blog About Building a Blog</h3>
 
 <div class="row justify-content-center">
     <div class="col-12 col-xl-10">
-      <div class="mb-2" style="color: tomato;">
-    @_error
-</div>
-
-@foreach (var post in _posts)
-{
-    <div class="card mt-2 mb-2">
-        <div class="card-body">
-            <h5 class="card-title">@post.Title</h5>
-            <p class="card-text">@((MarkupString)post.Content)</p>
+        <div class="mb-2" style="color: tomato;">
+            @_error
         </div>
-    </div>
-}  
+
+        @foreach (var post in _posts)
+        {
+            <div class="card mt-2 mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">@post.Title - @post.DateCreated.ToShortDateString()</h5>
+                    @if (!string.IsNullOrWhiteSpace(post.Abstract))
+                    {
+                        <h6 class="card-subtitle mb-2 text-muted">@post.Abstract</h6>
+                    }
+                    <p class="card-text">@((MarkupString)post.Content)</p>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -33,7 +44,9 @@
     {
         try
         {
-            _posts = await Http.GetFromJsonAsync<IEnumerable<Post>>($"api/post");
+            _posts = await _client.GetFromJsonAsync<IEnumerable<Post>>($"api/post");
+            StateHasChanged();
+            await _jsRuntime.InvokeVoidAsync("highlightAll");
         }
         catch (Exception ex)
         {
