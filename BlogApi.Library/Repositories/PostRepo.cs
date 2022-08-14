@@ -43,12 +43,18 @@ public class PostRepo : IPostRepo
     }
 
 
-    public async Task<List<Post>> LoadAllPostsAsync()
+    public async Task<Post?> LoadAsync(int postId)
+    {
+        return (await _dataAccess.LoadDataAsync<Post, dynamic>("spPost_Get", new { PostId = postId }, "BlogApi"))
+            .SingleOrDefault();
+    }
+
+    public async Task<List<Post>> LoadAllAsync()
     {
         return await _dataAccess.LoadDataAsync<Post, dynamic>("spPost_GetAll", new { }, "BlogApi");
     }
 
-    public async Task SavePostAsync(Post post)
+    public async Task SaveAsync(Post post)
     {
         int id = await _dataAccess.SaveDataAndGetIdAsync("spPost_Upsert", new
         {

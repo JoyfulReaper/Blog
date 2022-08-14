@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using BlogApi.Dtos;
 using BlogApi.Library.DataAccess;
 using BlogApi.Library.Repositories;
 using BlogApi.Library.Repositories.Interfaces;
@@ -41,6 +42,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IPostRepo, PostRepo>();
+
+builder.Services.AddAutoMapper(typeof(PostCreateRequest));
 
 builder.Services.AddCors(opts =>
 {

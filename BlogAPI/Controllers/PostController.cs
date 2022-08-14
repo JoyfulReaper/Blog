@@ -28,6 +28,7 @@ using BlogApi.Library.Repositories.Interfaces;
 using BlogApi.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 
 namespace BlogApi.Controllers;
 [Route("api/[controller]")]
@@ -36,18 +37,33 @@ public class PostController : ControllerBase
 {
     private readonly IConfiguration _config;
     private readonly IPostRepo _postRepo;
+    private readonly IMapper _mapper;
 
     public PostController(IConfiguration config,
-        IPostRepo postRepo)
+        IPostRepo postRepo,
+        IMapper mapper)
     {
         _config = config;
         _postRepo = postRepo;
+        _mapper = mapper;
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Post>> GetPostAsync(int id)
+    {
+        var post = await _postRepo.LoadAsync(id);
+        if(post is null)
+        {
+            return NotFound();
+        }
+
+        return post;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Post>>> GetPostsAsync()
     {
-        return await _postRepo.LoadAllPostsAsync();
+        return await _postRepo.LoadAllAsync();
     }
 
     [HttpPost]
@@ -58,16 +74,9 @@ public class PostController : ControllerBase
             return Unauthorized();
         }
 
-        var post = new Post
-        {
-            Title = postRequest.Title,
-            Abstract = postRequest.Abstract,
-            Content = postRequest.Content,
-            AuthorId = null,
-            Ready = postRequest.Ready
-        };
-        await _postRepo.SavePostAsync(post);
+        var post =_mapper.Map<Post>(postRequest);
+        await _postRepo.SaveAsync(post);
 
-        return CreatedAtAction(nameof(PostAsync), post);
+        return CreatedAtAction(nameof(GetPostAsync), new { id = post.PostId }, post);
     }
 }

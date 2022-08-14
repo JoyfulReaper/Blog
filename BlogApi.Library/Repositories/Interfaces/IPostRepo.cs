@@ -28,6 +28,7 @@ using BlogApi.Library.Models;
 namespace BlogApi.Library.Repositories.Interfaces;
 public interface IPostRepo
 {
-    Task<List<Post>> LoadAllPostsAsync();
-    Task SavePostAsync(Post post);
+    Task<Post?> LoadAsync(int postId);
+    Task<List<Post>> LoadAllAsync();
+    Task SaveAsync(Post post);
 }
