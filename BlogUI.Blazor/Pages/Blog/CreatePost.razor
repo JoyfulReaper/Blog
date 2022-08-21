@@ -1,6 +1,6 @@
 ﻿@page "/create-post"
 
-@inject HttpClient _client
+@inject IPostEndpoint _postEndpoint
 @inject NavigationManager _nav
 @inject IConfiguration _config
 
@@ -23,7 +23,7 @@
             <lable>Content</lable>
             <Editor Field="() => _post.Content" @bind-Value="_post.Content" ScriptSrc="@_config["TinyMce"]" Conf="@_editorConf" />
             <label>Password</label>
-            <InputText type="password" class="form-control" @bind-Value=_password />
+            <InputText type="password" class="form-control" @bind-Value=_post.Password />
             <button type="submit" class="btn btn-primary mt-1">Add Post</button>
         </EditForm>
     </div>
@@ -31,7 +31,6 @@
 
 @code {
     private Post _post = new Post();
-    private string _password = string.Empty;
     private string _error = string.Empty;
 
     private Dictionary<string, object> _editorConf = new Dictionary<string, object>{
@@ -45,15 +44,7 @@
     {
         try
         {
-            using var response = await _client.PostAsJsonAsync("/api/post", new
-            {
-                Title = _post.Title,
-                Abstract = _post.Abstract,
-                Content = _post.Content,
-                Password = _password
-            });
-            response.EnsureSuccessStatusCode();
-
+            await _postEndpoint.PostAsync(_post);
             _nav.NavigateTo("/");
         }
         catch (Exception ex)

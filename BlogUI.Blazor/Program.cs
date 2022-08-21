@@ -23,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+using BlogApi.Client;
+using BlogApi.Client.Interfaces;
 using BlogUI.Blazor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -44,6 +46,6 @@ else
 
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
-
+builder.Services.AddScoped<IPostEndpoint, PostEndpoint>();
 
 await builder.Build().RunAsync();

@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace BlogUI.Blazor.Models;
+namespace BlogApi.Client.Models;
 
 public class Post
 {
@@ -40,4 +40,6 @@ public class Post
 
     public DateTime DateCreated { get; set; }
     public DateTime? DateUpdated { get; set; }
+
+    public string? Password { get; set; }
 }
